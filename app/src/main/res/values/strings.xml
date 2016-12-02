@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">IndoorAtlas Sample</string>
+    <string name="indooratlas_floor_plan_id">e0b6b2f8-dc53-4049-a586-24bc626804a9</string>
+    <string name="indooratlas_floor_plan_id_2">3778ff9e-3472-47c6-b620-3a3274c53594</string>
+    <string name="indooratlas_api_key">a241cdbe-2cd5-44dd-9120-99484e794492</string>
+    <!--<string name="indooratlas_api_key">8e2cc0d3-72e2-423a-aef0-ac9e037e53a6</string>-->
+    <!--<string name="indooratlas_api_secret">MlFNV+RM3j+Wwz6xxMuionak2yTEau8Q95p6KFs71KiZq0RjlRzTHGa3Y3hB6r1p6uxJHBn5l8qKjRA+qSu9ntzJ6MMLu9hYdJaeWm1752eCG5Ssrr3Gt+2DK2Myzw==</string>-->
+    <string name="indooratlas_api_secret">5y05IL4buB8bD7KOib60FG+XDZh3AgcwSNkvggsI411NnUYTfESO9phag+tnvE3b83hFCWf+JkXi9Nw9SalUyhf4wa5n3cXj/fRULdVBM3QPxrSQ7PMhKR1Gj8VBnQ==</string>
+    <string name="basic_string">Basic</string>
+    <string name="floor_plan_activity">Floor Plan</string>
+    <string name="with_google_map">With Google Map</string>
+</resources>
