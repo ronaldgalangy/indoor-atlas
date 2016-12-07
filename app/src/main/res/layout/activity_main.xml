@@ -14,6 +14,7 @@
     <Button
         android:id="@+id/btn_basic"
         android:text="Basic"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -26,12 +27,14 @@
     <Button
         android:id="@+id/btn_with_google_map"
         android:text="Google Map"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btn_settings"
         android:text="Settings"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

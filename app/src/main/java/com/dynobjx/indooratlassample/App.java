@@ -26,7 +26,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        WayPoints wayPoints = WayPoints.getInstance(this);
+        /*WayPoints wayPoints = WayPoints.getInstance(this);
 
         ArrayList<CheckPoint> checkPoints = new ArrayList<>();
         IALocation iaLocation = new IALocation.Builder()
@@ -41,6 +41,36 @@ public class App extends Application {
 
         checkPoints.add(new CheckPoint("ayannah", iaLocation));
         checkPoints.add(new CheckPoint("elevator", iaLocation2));
+
+        wayPoints.setCheckPoints(checkPoints);*/
+
+        WayPoints wayPoints = WayPoints.getInstance(this);
+
+        ArrayList<CheckPoint> checkPoints = new ArrayList<>();
+        IALocation ayannah = new IALocation.Builder()
+                .withFloorLevel(30)
+                .withLatitude(14.58776608)  //14.58776608, 121.06155812
+                .withLongitude(121.06155812).build();
+
+        IALocation elevator = new IALocation.Builder()
+                .withFloorLevel(30)
+                .withLatitude(14.58787944)
+                .withLongitude(121.06134903).build();
+
+        IALocation dyno = new IALocation.Builder()
+                .withFloorLevel(30)
+                .withLatitude(14.58787551)
+                .withLongitude(121.06114524).build();
+
+        IALocation oldDyno = new IALocation.Builder()
+                .withFloorLevel(30)
+                .withLatitude(14.58776947)
+                .withLongitude(121.06135454).build();
+
+        checkPoints.add(new CheckPoint("ayannah", ayannah));
+        checkPoints.add(new CheckPoint("elevator", elevator));
+        checkPoints.add(new CheckPoint("3010", dyno));
+        checkPoints.add(new CheckPoint("3006", oldDyno));
 
         wayPoints.setCheckPoints(checkPoints);
 

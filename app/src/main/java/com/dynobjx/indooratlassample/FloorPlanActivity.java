@@ -85,6 +85,7 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
                 } else {
                     mImageView.setMarkerColor(ContextCompat.getColor(FloorPlanActivity.this,
                             R.color.colorPrimaryDark));
+                    log("path : " + location.getLatitude() + ", " + location.getLongitude());
                 }
                 mImageView.postInvalidate();
             }
@@ -104,6 +105,12 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
 
 
         final String floorPlanId = getString(R.string.indooratlas_floor_plan_id);
+        ensurePermissions();
+        IALocationRequest iaLocationRequest = IALocationRequest.create();
+        //iaLocationRequest.setFastestInterval(2000);
+        //iaLocationRequest.setSmallestDisplacement(1f);
+        iaLocationManager.requestLocationUpdates(iaLocationRequest, iaLocationListenerSupport);
+        iaLocationManager.registerRegionListener(this);
         //mImageView.setRadius(mFloorPlan.getMetersToPixels() * dotRadius);
 
     }
@@ -128,12 +135,6 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
 
     @Override
     protected void onResume() {
-        ensurePermissions();
-        IALocationRequest iaLocationRequest = IALocationRequest.create();
-        //iaLocationRequest.setFastestInterval(2000);
-        //iaLocationRequest.setSmallestDisplacement(.5f);
-        iaLocationManager.requestLocationUpdates(iaLocationRequest, iaLocationListenerSupport);
-        iaLocationManager.registerRegionListener(this);
         registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         super.onResume();
     }
@@ -150,8 +151,8 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause: ");
-        iaLocationManager.removeLocationUpdates(iaLocationListenerSupport);
-        iaLocationManager.unregisterRegionListener(this);
+        //iaLocationManager.removeLocationUpdates(iaLocationListenerSupport);
+        //iaLocationManager.unregisterRegionListener(this);
         unregisterReceiver(onComplete);
         super.onPause();
     }
@@ -193,6 +194,7 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
                 public void onResult(IAResult<IAFloorPlan> result) {
                     Log.d(TAG, "floor level : " + result.getResult().getFloorLevel());
                     Log.d(TAG, "floor plan url : " + result.getResult().getUrl());
+                    setTitle(result.getResult().getName());
                     /*if (result.isSuccess() && result.getResult() != null) {
                         final PicassoSingleton picassoSingleton = PicassoSingleton.getInstance();
                         picassoSingleton.getPicasso()
