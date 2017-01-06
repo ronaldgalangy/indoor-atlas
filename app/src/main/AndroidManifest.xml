@@ -32,6 +32,7 @@
             android:name=".BasicActivity"
             android:label="@string/basic_string" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".FloorPlanActivity"
             android:label="@string/floor_plan_activity" />
         <activity
@@ -52,7 +53,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".VerticalViewPagerActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".OtherActivity"></activity>
     </application>
 
 </manifest>

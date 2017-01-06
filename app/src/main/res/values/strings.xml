@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">IndoorAtlas Sample</string>
     <!--<string name="indooratlas_floor_plan_id">e0b6b2f8-dc53-4049-a586-24bc626804a9</string>
-    --><string name="indooratlas_floor_plan_id">eaa96f8f-a1ed-4400-8e4b-a161dbe13375</string>
+    -->
+    <string name="indooratlas_floor_plan_id">b06bda65-08a1-491b-ba36-0cdfd0aba87c</string>
+    <!--<string name="indooratlas_floor_plan_id">eaa96f8f-a1ed-4400-8e4b-a161dbe13375</string>-->
     <!--<string name="indooratlas_api_key">a241cdbe-2cd5-44dd-9120-99484e794492</string>
     -->
     <!--<string name="indooratlas_api_secret">5y05IL4buB8bD7KOib60FG+XDZh3AgcwSNkvggsI411NnUYTfESO9phag+tnvE3b83hFCWf+JkXi9Nw9SalUyhf4wa5n3cXj/fRULdVBM3QPxrSQ7PMhKR1Gj8VBnQ==</string>-->

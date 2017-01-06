@@ -28,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.ImageViewState;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.indooratlas.android.sdk.IALocation;
 import com.indooratlas.android.sdk.IALocationManager;
 import com.indooratlas.android.sdk.IALocationRequest;
@@ -68,6 +70,11 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
 
     private final String TAG = FloorPlanActivity.class.getSimpleName();
 
+    private static final String BUNDLE_STATE = "ImageViewState";
+    private static final String BUNDLE_FILE_PATH = "FLOOR_PLAN_PATH";
+    private ImageViewState imageViewState = null;
+    private String filePath;
+
     private IALocationListenerSupport iaLocationListenerSupport = new IALocationListenerSupport() {
         @Override
         public void onLocationChanged(IALocation location) {
@@ -79,7 +86,7 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
                 final WayPoints wayPoints = WayPoints.getInstance(FloorPlanActivity.this);
                 final CheckPoint checkPoint = wayPoints.checkIfWayPointExists(location);
                 if (checkPoint != null) {
-                    log("You are in " + checkPoint.getName());
+                    log("You are in " + checkPoint.getName() + "  --->  " + location.getLatitude() + ", " + location.getLongitude());
                     mImageView.setMarkerColor(ContextCompat.getColor(FloorPlanActivity.this,
                             R.color.colorAccent));
                 } else {
@@ -87,6 +94,12 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
                             R.color.colorPrimaryDark));
                     log("path : " + location.getLatitude() + ", " + location.getLongitude());
                 }
+                mImageView.animateScaleAndCenter(5f, point)
+                        .withDuration(500)
+                        .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                        .withInterruptible(false)
+                        .start();
+
                 mImageView.postInvalidate();
             }
         }
@@ -113,6 +126,26 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
         iaLocationManager.registerRegionListener(this);
         //mImageView.setRadius(mFloorPlan.getMetersToPixels() * dotRadius);
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_STATE)) {
+            imageViewState = (ImageViewState)savedInstanceState.getSerializable(BUNDLE_STATE);
+        }
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_FILE_PATH)) {
+            filePath = savedInstanceState.getString(BUNDLE_FILE_PATH);
+        }
+
+        if (filePath != null && !filePath.isEmpty()) {
+            showFloorPlanImage(filePath);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        ImageViewState state = mImageView.getState();
+        if (state != null) {
+            outState.putSerializable(BUNDLE_STATE, mImageView.getState());
+        }
+        outState.putString(BUNDLE_FILE_PATH, filePath);
     }
 
     @Override
@@ -215,7 +248,7 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
                     if (result.isSuccess() && result.getResult() != null) {
                         mFloorPlan = result.getResult();
                         String fileName = mFloorPlan.getId() + ".img";
-                        String filePath = Environment.getExternalStorageDirectory() + "/"
+                        filePath = Environment.getExternalStorageDirectory() + "/"
                                 + Environment.DIRECTORY_DOWNLOADS + "/" + fileName;
                         File file = new File(filePath);
                         if (!file.exists()) {
@@ -258,8 +291,8 @@ public class FloorPlanActivity extends AppCompatActivity implements IARegion.Lis
     }
 
     private void showFloorPlanImage(String filePath) {
-        mImageView.setRadius(mFloorPlan.getMetersToPixels() * dotRadius);
-        mImageView.setImage(ImageSource.uri(filePath));
+        //mImageView.setRadius(mFloorPlan.getMetersToPixels() * dotRadius);
+        mImageView.setImage(ImageSource.uri(filePath), imageViewState);
     }
 
     /**

@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnWithGoogleMap;
     @BindView(R.id.btn_settings)
     Button btnSettings;
+    @BindView(R.id.btn_image)
+    Button btnImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBasic.setOnClickListener(this);
         btnFloorPlan.setOnClickListener(this);
         btnWithGoogleMap.setOnClickListener(this);
+        btnImage.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_settings:
                 clz = SettingsActivity.class;
+                break;
+            case R.id.btn_image:
+                clz = OtherActivity.class;
                 break;
         }
         startActivity(new Intent(this, clz));

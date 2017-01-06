@@ -42,6 +42,7 @@ public class BlueDotView extends SubsamplingScaleImageView {
         super(context, attr);
         this.context = context;
         initialise();
+        setRadius(10.0f);
     }
 
     private void initialise() {
